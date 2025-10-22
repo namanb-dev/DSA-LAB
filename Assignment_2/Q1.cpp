@@ -1,29 +1,65 @@
+// Implement the Binary search algorithm regarded as a fast search algorithm with
+// run-time complexity of Ο(log n) in comparison to the Linear Search.
 
 #include <iostream>
 using namespace std;
 
-bool binarySearch(int arr[], int size, int key) {
-    int left = 0, right = size - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == key) {
-            return true;
+int Binary_Search(int arr[], int Target, int size )
+{
+    int mid,i;
+    int low = 0;
+    int high = size - 1;
+
+    for(i=0; i<size; i++)
+    {
+        mid = (low + high)/2;
+
+        if(arr[mid] == Target)
+        {
+            return mid;
         }
-        if (arr[mid] < key) {
-            left = mid + 1;
-        }   
-        else {
-            right = mid - 1;
+        else
+        {
+            if(arr[mid] < Target)
+            {
+                low = mid + 1; // search the right side
+            }
+            else
+            {
+                high = mid - 1; // search the left side
+            }
         }
     }
-    return false;
+    
+    return -1;
 }
 
-int main(){
+int main() {
+    int size;
+    cout<<"size: ";
+    cin>>size;
 
-    int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int k = 10;
-    cout<<binarySearch(arr, 10, k) << endl;
-   
+    int* arr = new int[size]; // dynamic allocation of array
+    int i;
+    cout<<"Enter the elements: ";
+    for(i=0; i<size; i++)
+    {
+        cin>>arr[i];
+    }
 
+    int Target;
+    cout<<"Enter the target: ";
+    cin>>Target;
+
+    int result = Binary_Search(arr, Target, size);
+
+    if (Target == -1)
+    {
+        return -1;
+    }
+    else
+    {
+        cout<<result<<endl;
+    }
+    return 0;
 }
