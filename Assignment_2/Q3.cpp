@@ -1,49 +1,83 @@
+// Design the Logic to Find a Missing Number in a Sorted Array. Given an array of n-1
+// distinct integers in the range of 1 to n, find the missing number in it in a Sorted Array
+// (a) Linear time
+// (b) Using binary search.
+
+// (a) Linear time
 #include <iostream>
 using namespace std;
 
-int sol1(int arr[],int size){
-    for (int i = 1; i <= size; i++)
+int main() {
+    int size, i, missing = - 1;
+    cout<<"size: ";
+    cin>>size;
+
+    int *arr = new int[size];
+    cout<<"Elements: ";
+    for( i=0; i<size; i++)
     {
-        if(arr[i-1]!=i){
-            return i;
+        cin>>arr[i];
+    }
+
+    for(i=0; i<size; i++)
+    {
+        if(arr[i] + 1 != arr[i+1])
+        {
+            missing = arr[i] + 1;
+            break;
         }
     }
-    return size + 1;
+
+    if(missing == -1)
+    {
+        cout<<"There's no missing integer."<<endl;
+    }
+    else
+    {
+        cout<<"The missing integer is: "<<missing<<endl;
+    }
+
+    return 0;
+}
+
+
+// (b) Binary search
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size,i, missing;
+    cout<<"size: ";
+    cin>>size;
+
+    int *arr = new int[size];
+    cout<<"Elements: ";
+    for(i=0; i<size; i++)
+    {
+        cin>>arr[i];
+    }
+
+    int mid, low = 0, high = size - 1;
+
+    for(i = 0 ;i<size; i++)
+    {
+        mid = (low + high)/2;
+
+        if(arr[mid] == mid + 1)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            missing = mid + 1;
+            high = mid - 1;
+        }
+    }
+
+    cout<<"missing element is: "<<missing<<endl;
+
+    delete[] arr;
+
     
-}
-
-int sol2(int arr[], int size) {
-    int left = 0, right = size - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-
-        if (arr[mid] != mid + 1) {
-            if (mid == 0 || arr[mid - 1] == mid) {
-                return mid + 1;
-            }
-            right = mid - 1;
-        } else {
-            left = mid + 1; 
-        }
-    }
-    return size + 1;
-}
-
-int main(){
-
-int arr[] = {1,2,3,4,5,6,8};
-int n = sizeof(arr)/sizeof(arr[0]);
-if (sol1(arr,n))
-{
-    cout<<"Missing no is "<<sol1(arr,n)<<endl;
-}
-else cout<<"All numbers are present"<<endl;
-
-if (sol2(arr,n))
-{
-    cout<<"Missing no is "<<sol2(arr,n);
-}
-else cout<<"All numbers are present";
-
-
+    return 0;
 }
