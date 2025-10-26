@@ -1,65 +1,111 @@
+// String Related Programs
+// (a) Write a program to concatenate one string to another string.
+// (b) Write a program to reverse a string.
+// (c) Write a program to delete all the vowels from the string.
+// (d) Write a program to sort the strings in alphabetical order.
+// (e) Write a program to convert a character from uppercase to lowercase.
+
 #include <iostream>
 using namespace std;
 
-string concatenateStrings(const string& str1, const string& str2) {
-    return str1 + str2;
+string Concatenting(string name, string surname)
+{
+    string Fullname = name + " " + surname;
+    return Fullname;
 }
 
-string reverse(string& str) {
-    int n = str.length();
-    for (int i = 0; i < n / 2; i++) {
-        swap(str[i], str[n - i - 1]);
-    }
-    return str;
-}
-
-bool isvowel(char ch) {
-    ch = tolower(ch); 
-    return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
-}
-
-string removeVowels(string& str) {
-    int j = 0;
-    for (int i = 0; i < str.size(); i++)
+int Reversing(string Fullname)
+{
+    int i, j, size = Fullname.length(), temp;
+    for (i = 0; i < size / 2; i++)
     {
-        if(!isvowel(str[i])) {
-            str[j++] = str[i];
-        }
+        temp = Fullname[i];
+        Fullname[i] = Fullname[size - i - 1];
+        Fullname[size - i - 1] = temp;
     }
-    str.resize(j);
-    return str;
+    cout << "Reverse: " << Fullname << "\n";
+
+    return size;
 }
 
-void sort(string &str){
-    for (int i = 0; i < str.size() - 1; i++) {
-        for (int j = 0; j < str.size() - i - 1; j++) {
-            if (tolower(str[j]) > tolower(str[j + 1])) {
-                swap(str[j], str[j + 1]);
+void Removing_vowels(string Fullname, int size)
+{
+    int i,j;
+    for(i=0; i<size; i++)
+    {
+        if(Fullname[i] == 'a' || Fullname[i] == 'e' || Fullname[i] == 'i' || Fullname[i] == 'o' || Fullname[i] == 'u')
+        {
+            for(j=i; j<size; j++)
+            {
+                Fullname[j] = Fullname[j+1];
             }
         }
     }
+
+    cout<<"Without any vowel: "<<Fullname<<endl;
 }
 
-string upper_to_lowercase(string &str){
-    for(char &ch: str){
-        if(ch<='Z' && ch>='A'){
-            ch = ch - 'A' + 'a';
+// alphabatically sorting only smaller case alphabats
+void Alphabatical_sorting(string Fullname, int size)
+{
+    int i,j;
+    for(i=0; i<size; i++)
+    {
+        for(j=i+1; j<size; j++)
+        {
+            if(Fullname[i] > Fullname[j])
+            {
+                char temp = Fullname[i];
+                Fullname[i] = Fullname[j];
+                Fullname[j] = temp;
+            }
         }
     }
-    return str;
+
+    cout<<"after alphabatically sorted: "<<Fullname;
 }
 
-int main(){
+void converting_lower_to_upercase(string Fullname, int size)
+{
+    int i;
+    for(i=0; i<size; i++)
+    {
+        
+    }
+}
 
-    string str = "Hello";
-    string str2 = " hi";
-    string str3 = "aeiouAEIOUM1";
-    string str4 = "MadhAv";
-    // cout<<concatenateStrings(str, str2) << endl;
-    // cout << reverse(str) << endl;
-    // cout << removeVowels(str3) << endl;
-    // sort(str4);
-    // cout<<str4;
-    cout<<upper_to_lowercase(str3);
 
+int main()
+{
+    string name, surname;
+    cout << "Frontname: ";
+    getline(cin, name);
+    cout << "Surname: ";
+    getline(cin, surname);
+    
+    cout<<endl;
+
+    // (a) concatenating one string to another string
+    string Fullname = Concatenting(name, surname);
+    cout << "Full name: " << Fullname << endl;
+
+    cout << endl;
+
+    // (b) reversing the string
+    int size = Reversing(Fullname);
+    
+    cout << endl;
+
+    // (c) deleting all the vowels from the string
+    Removing_vowels(Fullname, size);
+
+    cout<<endl; 
+
+    // (d) sorting the strings in alphabetical order.
+    Alphabatical_sorting(Fullname, size);
+
+    // (e) converting a character from uppercase to lowercase.
+
+
+    return 0;
 }
